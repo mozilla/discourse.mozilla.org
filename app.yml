@@ -1,0 +1,39 @@
+templates:
+  - "templates/web.template.yml"
+  - "templates/web.ratelimited.template.yml"
+  - "templates/env.yml"
+
+expose:
+  - "80:80"
+
+params:
+  ## Which Git revision should this container use? (default: tests-passed)
+  version: tests-passed
+
+volumes:
+  - volume:
+      host: /srv/marathon-efs/discourse/shared/web-only
+      guest: /shared
+  - volume:
+      host: /srv/marathon-efs/discourse/shared/web-only/log/var-log
+      guest: /var/log
+
+hooks:
+  after_code:
+    - exec:
+        cd: $home/plugins
+        cmd:
+          - mkdir -p plugins
+          - git clone https://github.com/discourse/discourse-akismet.git
+          - git clone https://github.com/LeoMcA/discourse-auth0-mozilla.git
+          - git clone http://github.com/LeoMcA/discourse-mozillians.git -b development
+run:
+  - exec: echo "Beginning of custom commands"
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: "server {"
+      to: |+
+        server {
+        add_header Strict-Transport-Security max-age=15768000;
+        add_header Content-Security-Policy "default-src 'self' https://cdn-staging.discourse.mozilla-community.org; script-src https://cdn-staging.discourse.mozilla-community.org 'self' 'unsafe-inline' 'unsafe-eval'; style-src https://fonts.googleapis.com https://cdn-staging.discourse.mozilla-community.org 'self' 'unsafe-inline'; connect-src https://auth.mozilla.auth0.com https://parsys.auth0.com https://cdn-staging.discourse.mozilla-community.org 'self'; font-src https://fonts.gstatic.com https://fonts.googleapis.com https://cdn-staging.discourse.mozilla-community.org 'self' data:; img-src https://i.imgur.com https://cdn.auth0.com https://cdn-staging.discourse.mozilla-community.org 'self' data: https:;";
