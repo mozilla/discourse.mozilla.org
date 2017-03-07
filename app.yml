@@ -27,9 +27,10 @@ hooks:
         cmd:
           - mkdir -p plugins
           - git clone https://github.com/discourse/discourse-akismet.git
-          - git clone https://github.com/LeoMcA/discourse-auth0-mozilla.git
-          - git clone http://github.com/LeoMcA/discourse-mozillians.git
-          - git clone https://github.com/LeoMcA/discourse-email-all.git
+          - git clone https://github.com/mozilla/discourse-auth0-mozilla.git
+          - git clone http://github.com/mozilla/discourse-mozillians.git
+          - git clone https://github.com/mozilla/discourse-email-all.git
+          - git clone https://github.com/mozilla/discourse-expose-emails-in.git
 run:
   - exec: echo "Beginning of custom commands"
 
