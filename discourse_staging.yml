@@ -30,6 +30,7 @@ hooks:
           - git clone https://github.com/mozilla/discourse-email-all.git -b development
           - git clone https://github.com/mozilla/discourse-expose-emails-in.git -b development
           - git clone https://github.com/mozilla/discourse-category-categorization.git -b development
+          - git clone https://github.com/discourse/discourse-solved.git
 run:
   - exec: echo "Beginning of custom commands"
 
