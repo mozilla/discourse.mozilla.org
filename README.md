@@ -1,2 +1,2 @@
-# discourse.mozilla-community.org
-Configuration for discourse.mozilla-community.org
+# discourse.mozilla.org
+Configuration for discourse.mozilla.org
