@@ -25,7 +25,7 @@ hooks:
         cmd:
           - mkdir -p plugins
           - git clone https://github.com/discourse/discourse-akismet.git
-          - git clone https://github.com/LeoMcA/discourse-mozilla-iam.git -b development
+          - git clone https://github.com/mozilla/discourse-mozilla-iam.git -b development
           - git clone https://github.com/mozilla/discourse-mozillians.git -b development
           - git clone https://github.com/mozilla/discourse-email-all.git -b development
           - git clone https://github.com/mozilla/discourse-expose-emails-in.git -b development
