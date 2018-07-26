@@ -1,7 +1,7 @@
 run:
   - exec: echo "Adding contribute.json"
   - file:
-    path: /var/www/discourse/public/contribute.json
+    path: "/tmp/contribute.json"
     chmod: "+r"
     contents: |
       {
@@ -45,4 +45,5 @@ run:
           "postgresql"
         ]
       }
+  - exec: "mv /tmp/contribute.json /var/www/discourse/public/"
   - exec: echo "End of adding contribute.json"
