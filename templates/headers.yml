@@ -1,0 +1,9 @@
+run:
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /add_header Referrer-Policy 'no-referrer-when-downgrade';/m
+      to: |
+        add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
+        add_header Strict-Transport-Security "max-age=15768000";
+        add_header Content-Security-Policy "default-src 'self' _DISCOURSE_CDN_URL; script-src https://rum-static.pingdom.net https://www.googletagmanager.com https://tagmanager.google.com https://www.google-analytics.com _DISCOURSE_CDN_URL 'self' 'unsafe-inline' 'unsafe-eval'; style-src https://code.cdn.mozilla.net/fonts/ https://fonts.googleapis.com/ _DISCOURSE_CDN_URL 'self' 'unsafe-inline'; font-src _DISCOURSE_CDN_URL https://code.cdn.mozilla.net https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://drive.google.com https://www.youtube.com https://player.vimeo.com; object-src 'none'; frame-ancestors 'self';";
+  - exec: sed -i "s|_DISCOURSE_CDN_URL|$DISCOURSE_CDN_URL|g" /etc/nginx/conf.d/discourse.conf

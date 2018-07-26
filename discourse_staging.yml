@@ -3,6 +3,11 @@ templates:
   - "templates/web.ratelimited.template.yml"
   - "templates/env.yml"
   - "templates/contribute.yml"
+  - "templates/headers.yml"
+
+env:
+  LANG: en_US.UTF-8
+  DISCOURSE_CDN_URL: https://cdn-staging.discourse.mozilla-community.org
 
 expose:
   - "80:80"
@@ -34,11 +39,3 @@ hooks:
           - git clone https://github.com/discourse/discourse-solved.git
 run:
   - exec: echo "Beginning of custom commands"
-
-  - replace:
-      filename: "/etc/nginx/conf.d/discourse.conf"
-      from: "location @discourse {"
-      to: |+
-        location @discourse {
-        add_header Strict-Transport-Security max-age=15768000;
-        add_header Content-Security-Policy "default-src 'self' https://drive.google.com https://video.google.com https://www.youtube.com https://player.vimeo.com https://cdn-staging.discourse.mozilla-community.org; script-src https://rum-static.pingdom.net https://www.googletagmanager.com https://tagmanager.google.com https://www.google-analytics.com https://cdn-staging.discourse.mozilla-community.org 'self' 'unsafe-inline' 'unsafe-eval'; style-src https://tagmanager.google.com https://code.cdn.mozilla.net https://fonts.googleapis.com https://cdn-staging.discourse.mozilla-community.org 'self' 'unsafe-inline'; connect-src https://auth.mozilla.auth0.com https://www.google-analytics.com https://parsys.auth0.com https://cdn-staging.discourse.mozilla-community.org 'self'; font-src https://fonts.gstatic.com https://code.cdn.mozilla.net https://fonts.googleapis.com https://cdn-staging.discourse.mozilla-community.org 'self' data:; img-src https://i.imgur.com https://cdn.auth0.com https://cdn-staging.discourse.mozilla-community.org 'self' data: https:;";
