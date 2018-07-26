@@ -1,49 +1,48 @@
 run:
   - exec: echo "Adding contribute.json"
   - file:
-    path: "/tmp/contribute.json"
-    chmod: "+r"
-    contents: |
-      {
-        "name": "Mozilla Discourse",
-        "description": "Mozilla runs the latest upstream version of Discourse (https://discourse.org), modified with a number of plugins: https://wiki.mozilla.org/Discourse#Plugins",
-        "repository": {
-          "url": "https://github.com/discourse/discourse",
-          "license": "GPL-2.0"
-        },
-        "bugs": {
-          "report": "https://github.com/mozilla/discourse/issues/new",
-          "list": "https://github.com/mozilla/discourse/issues"
-        },
-        "participate": {
-          "home": "https://wiki.mozilla.org/Discourse",
-          "docs": "https://wiki.mozilla.org/Discourse#Documentation",
-          "mailing-list": "https://discourse.mozilla.org/c/meta",
-          "irc": "irc://irc.mozilla.org/#participationsystems",
-          "irc-contacts": [
-            "@leo (bridged from slack)",
-            "@hmitsch (he/him) (bridged from slack)"
-          ],
-          "slack": "https://mozilla.slack.com/messages/participationsystems",
-          "slack-contacts": [
-            "@leo",
-            "@hmitsch (he/him)"
+      path: "/var/www/discourse/public/contribute.json"
+      chmod: "+r"
+      contents: |
+        {
+          "name": "Mozilla Discourse",
+          "description": "Mozilla runs the latest upstream version of Discourse (https://discourse.org), modified with a number of plugins: https://wiki.mozilla.org/Discourse#Plugins",
+          "repository": {
+            "url": "https://github.com/discourse/discourse",
+            "license": "GPL-2.0"
+          },
+          "bugs": {
+            "report": "https://github.com/mozilla/discourse/issues/new",
+            "list": "https://github.com/mozilla/discourse/issues"
+          },
+          "participate": {
+            "home": "https://wiki.mozilla.org/Discourse",
+            "docs": "https://wiki.mozilla.org/Discourse#Documentation",
+            "mailing-list": "https://discourse.mozilla.org/c/meta",
+            "irc": "irc://irc.mozilla.org/#participationsystems",
+            "irc-contacts": [
+              "@leo (bridged from slack)",
+              "@hmitsch (he/him) (bridged from slack)"
+            ],
+            "slack": "https://mozilla.slack.com/messages/participationsystems",
+            "slack-contacts": [
+              "@leo",
+              "@hmitsch (he/him)"
+            ]
+          },
+          "urls": {
+            "prod": "https://discourse.mozilla.org",
+            "stage": "https://discourse-staging.production.paas.mozilla.community"
+          },
+          "keywords": [
+            "discourse",
+            "ruby",
+            "rails",
+            "javascript",
+            "ember",
+            "sass",
+            "docker",
+            "postgresql"
           ]
-        },
-        "urls": {
-          "prod": "https://discourse.mozilla.org",
-          "stage": "https://discourse-staging.production.paas.mozilla.community"
-        },
-        "keywords": [
-          "discourse",
-          "ruby",
-          "rails",
-          "javascript",
-          "ember",
-          "sass",
-          "docker",
-          "postgresql"
-        ]
-      }
-  - exec: "mv /tmp/contribute.json /var/www/discourse/public/"
+        }
   - exec: echo "End of adding contribute.json"
