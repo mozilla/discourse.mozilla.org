@@ -2,8 +2,8 @@ templates:
   - "templates/web.template.yml"
   - "templates/web.ratelimited.template.yml"
   - "templates/env.yml"
-  - "templates/contribute.yml"
-  - "templates/headers.yml"
+  - "includes/contribute.yml"
+  - "includes/headers.yml"
 
 env:
   LANG: en_US.UTF-8
