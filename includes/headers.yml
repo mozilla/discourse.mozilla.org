@@ -3,8 +3,9 @@ run:
       filename: "/etc/nginx/conf.d/discourse.conf"
       from: /add_header Referrer-Policy 'no-referrer-when-downgrade';/m
       to: |
-        proxy_set_header X-Forwarded-Host "discourse.mozilla.org";
+        proxy_set_header X-Forwarded-Host "_HOST_";
         add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
         add_header Strict-Transport-Security "max-age=15768000";
         add_header Content-Security-Policy "default-src _SELF_; connect-src _SELF_ https://*.pingdom.net; script-src _SELF_ 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com/gtm.js https://www.google-analytics.com/analytics.js https://rum-static.pingdom.net/prum.min.js; style-src _SELF_ 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com; font-src _SELF_ https://code.cdn.mozilla.net https://fonts.gstatic.com; img-src _SELF_ data: https:; frame-src https://drive.google.com https://www.youtube.com https://player.vimeo.com; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self';";
+  - exec: sed -i "s|_HOST_|$DISCOURSE_HOSTNAME|g" /etc/nginx/conf.d/discourse.conf
   - exec: sed -i "s|_SELF_|'self' $DISCOURSE_CDN_URL|g" /etc/nginx/conf.d/discourse.conf
