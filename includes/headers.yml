@@ -11,6 +11,7 @@ params:
     frame-ancestors 'none';
     base-uri 'none';
     form-action 'self';
+    report-uri /csp_reports;
 
 run:
   - replace:
