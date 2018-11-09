@@ -1,8 +1,9 @@
 run:
   - replace:
       filename: "/etc/nginx/conf.d/discourse.conf"
-      from: /add_header Referrer-Policy 'no-referrer-when-downgrade';/m
+      from: "location @discourse {"
       to: |
+        location @discourse {
         proxy_set_header X-Forwarded-Host "_HOST_";
         add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
         add_header Strict-Transport-Security "max-age=15768000";
