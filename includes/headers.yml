@@ -2,7 +2,7 @@ params:
   MOZILLA_DISCOURSE_CSP_HEADER: >-
     default-src _SELF_;
     connect-src _SELF_ https://*.pingdom.net;
-    script-src _SELF_ 'unsafe-eval' https://www.googletagmanager.com/gtm.js https://www.google-analytics.com/analytics.js https://rum-static.pingdom.net/prum.min.js;
+    script-src _SELF_ 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com/gtm.js https://www.google-analytics.com/analytics.js https://rum-static.pingdom.net/prum.min.js;
     style-src _SELF_ 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com;
     font-src _SELF_ https://code.cdn.mozilla.net https://fonts.gstatic.com;
     img-src _SELF_ data: https:;
@@ -11,7 +11,6 @@ params:
     frame-ancestors 'none';
     base-uri 'none';
     form-action 'self';
-    report-uri /csp_reports;
 
 run:
   - replace:
