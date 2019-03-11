@@ -8,6 +8,8 @@ templates:
 env:
   LANG: en_US.UTF-8
   DISCOURSE_CDN_URL: https://cdn-production.discourse.mozilla-community.org
+  DISCOURSE_LOG_SIDEKIQ: 1
+  DISCOURSE_LOG_SIDEKIQ_INTERVAL: 60
 
 expose:
   - "80:80"
