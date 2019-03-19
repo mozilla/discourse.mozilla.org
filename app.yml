@@ -36,11 +36,9 @@ hooks:
           - mkdir -p plugins
           - git clone https://github.com/discourse/discourse-akismet.git
           - git clone https://github.com/mozilla/discourse-mozilla-iam.git
-          - git clone https://github.com/mozilla/discourse-email-all.git
           - git clone https://github.com/mozilla/discourse-expose-emails-in.git
           - git clone https://github.com/mozilla/discourse-post-read-email.git
           - git clone https://github.com/discourse/discourse-solved.git
           - git clone https://github.com/mozilla/discourse-sidekiq-monitor.git
-          - git clone https://github.com/discourse/discourse-translator.git
 run:
   - exec: echo "Beginning of custom commands"
