@@ -1,6 +1,6 @@
 templates:
   - "templates/web.template.yml"
-  - "templates/web.ratelimited.template.yml"
+  # - "templates/web.ratelimited.template.yml"
   - "includes/env.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
