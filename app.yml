@@ -16,7 +16,7 @@ expose:
 
 params:
   ## Which Git revision should this container use? (default: tests-passed)
-  version: bc8b7b13ef58e76edbf5f5bbc2b3a64c92c10ee4
+  version: tests-passed
 
 volumes:
   - volume:
