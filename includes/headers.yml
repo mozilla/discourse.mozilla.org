@@ -6,11 +6,13 @@ params:
     style-src _SELF_ 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com;
     font-src _SELF_ https://code.cdn.mozilla.net https://fonts.gstatic.com;
     img-src _SELF_ data: https:;
+    media-src _SELF_ data: https:;
     frame-src https://drive.google.com https://www.youtube.com https://player.vimeo.com;
     object-src 'none';
     frame-ancestors 'none';
     base-uri 'none';
     form-action 'self';
+    upgrade-insecure-requests;
     report-uri /csp_reports;
 
 run:
