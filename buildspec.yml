@@ -20,6 +20,7 @@ phases:
 
       - sed -i "s/db-host/$DB_HOST/" includes/env.yml
       - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
+      - cat includes/env.yml
 
   build:
     commands:
