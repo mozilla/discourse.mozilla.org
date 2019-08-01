@@ -16,7 +16,7 @@ phases:
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
       # TODO switch to upstream repo when ready
-      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/codebuild-job/includes/env.yml -O includes/env.yml
+      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/includes/env.yml -O includes/env.yml
 
       - sed -i "s/db-host/$DB_HOST/" includes/env.yml
       - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
