@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+        ruby: 2.6
+
+  pre_build:
+    commands:
+      - git clone -q https://github.com/discourse/discourse_docker.git
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
+      - mkdir -p includes
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
+      # TODO switch to upstream repo when ready
+      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/codebuild-job/includes/env.yml -O includes/env.yml
+
+  build:
+    commands:
+      - ./launcher bootstrap app 
+  post_build:
+    commands:
+      - echo "Upload to registry"
