@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - git clone -q https://github.com/discourse/discourse_docker.git
-      - git cd discourse_docker
+      - cd discourse_docker
       - mkdir -p includes
       - mkdir -p containers
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
