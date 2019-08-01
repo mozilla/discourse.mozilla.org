@@ -8,8 +8,9 @@ phases:
   pre_build:
     commands:
       - git clone -q https://github.com/discourse/discourse_docker.git
-      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
       - mkdir -p includes
+      - mkdir -p containers
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
       # TODO switch to upstream repo when ready
