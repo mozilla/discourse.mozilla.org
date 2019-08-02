@@ -11,11 +11,9 @@ phases:
 
   pre_build:
     commands:
-      - env
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
-      - mkdir -p includes
-      - mkdir -p containers
+      - mkdir -p includes && mkdir -p containers
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
@@ -25,12 +23,11 @@ phases:
       - sed -i "s/db-host/$DB_HOST/" includes/env.yml
       - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
       - sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
-      - echo "$DB_PWD"
-      - cat includes/env.yml
 
   build:
     commands:
       - ./launcher bootstrap app 
   post_build:
     commands:
-      - echo "Upload to registry"
+      - docker tag local_discourse/app:latest "$REPOSITORY_URI":latest
+      - docker push "$REPOSITORY_URI":latest
