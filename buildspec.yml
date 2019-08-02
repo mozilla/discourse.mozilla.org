@@ -31,5 +31,7 @@ phases:
       - ./launcher bootstrap app 
   post_build:
     commands:
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - docker tag local_discourse/app:latest "$ECR:latest"
-      - docker push $ECR:latest
+      - echo "docker push $ECR:latest"
+      - docker push "$ECR:latest"
