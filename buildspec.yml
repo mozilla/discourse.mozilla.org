@@ -12,6 +12,7 @@ phases:
   pre_build:
     commands:
       - env
+      - echo "aaaaa" $ECR
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
@@ -30,5 +31,5 @@ phases:
       - ./launcher bootstrap app 
   post_build:
     commands:
-      - docker tag local_discourse/app:latest "$ECR":latest
-      - docker push "$ECR":latest
+      - docker tag local_discourse/app:latest $ECR:latest
+      - docker push $ECR:latest
