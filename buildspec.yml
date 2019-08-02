@@ -31,5 +31,5 @@ phases:
       - ./launcher bootstrap app 
   post_build:
     commands:
-      - docker tag local_discourse/app:latest $ECR:latest
+      - docker tag local_discourse/app:latest "$ECR:latest"
       - docker push $ECR:latest
