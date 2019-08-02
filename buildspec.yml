@@ -11,6 +11,7 @@ phases:
 
   pre_build:
     commands:
+      - env
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
