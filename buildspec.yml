@@ -12,7 +12,7 @@ phases:
   pre_build:
     commands:
       - env
-      - echo "aaaaa" $ECR
+      - echo "aaaaa $ECR"
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
