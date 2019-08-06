@@ -11,7 +11,7 @@ phases:
     commands:
       - aws eks update-kubeconfig --name $CLUSTER 
       - aws ecr get-login --region us-west-2 --no-include-email | bash
-      - sudo snap install helm --classic
+      - snap install helm --classic
 
   pre_build:
     commands:
