@@ -50,5 +50,5 @@ phases:
       - kubectl config view
       - aws sts get-caller-identity
       - aws --region us-west-2 eks get-token --cluster-name k8s-apps-prod-us-west-2
-      - kubectl auth can-i get deployments
+      #- kubectl auth can-i get deployments
       - kubectl get namespaces -v10
