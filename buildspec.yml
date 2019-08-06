@@ -33,14 +33,14 @@ phases:
 
   build:
     commands:
-      #- ./launcher bootstrap app 
+      - ./launcher bootstrap app 
       - cd ..
   post_build:
     commands:
-      #- $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      #- docker tag local_discourse/app:latest "$ECR:latest"
-      #- echo "docker push $ECR:latest"
-      #- docker push "$ECR:latest"
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - docker tag local_discourse/app:latest "$ECR:latest"
+      - echo "docker push $ECR:latest"
+      - docker push "$ECR:latest"
       # Deploy
       # TODO: use upstream repo when ready
       - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
