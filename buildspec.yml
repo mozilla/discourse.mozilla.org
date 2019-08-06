@@ -34,6 +34,7 @@ phases:
   build:
     commands:
       #- ./launcher bootstrap app 
+      - cd ..
   post_build:
     commands:
       #- $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
