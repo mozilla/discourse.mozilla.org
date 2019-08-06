@@ -47,8 +47,5 @@ phases:
       - cd discourse.mozilla.org
       - ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/
       #- ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/ | kubectl apply -f -
-      - kubectl config view
-      - aws sts get-caller-identity
-      - aws --region us-west-2 eks get-token --cluster-name k8s-apps-prod-us-west-2
       #- kubectl auth can-i get deployments
-      - kubectl get namespaces -v10
+      - kubectl get namespaces
