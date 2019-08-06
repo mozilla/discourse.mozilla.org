@@ -1,3 +1,6 @@
+templates:
+  - "includes/env.yml"
+
 env:
   LANG: en_US.UTF-8
   DISCOURSE_CDN_URL: https://cdn-staging.discourse.mozilla-community.org
@@ -8,7 +11,6 @@ expose:
   - "80:80"
 
 params:
-  ## Which Git revision should this container use? (default: tests-passed)
   version: tests-passed
 
 hooks:
