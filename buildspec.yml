@@ -48,4 +48,4 @@ phases:
       - ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/
       #- ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/ | kubectl apply -f -
       - kubectl auth can-i get deployments
-      - kubectl get namespaces
+      - kubectl get namespaces -v10
