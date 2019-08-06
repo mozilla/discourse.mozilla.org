@@ -42,6 +42,11 @@ phases:
       #- echo "docker push $ECR:latest"
       #- docker push "$ECR:latest"
       # Deploy
+      # TODO: use upstream repo when ready
       - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
       - cd discourse.mozilla.org
+      - pwd
+      - ls
+      - ls ..
+      - ls ../linux-amd64
       - ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/
