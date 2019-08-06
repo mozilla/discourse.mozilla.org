@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.name }}
-          image: {{ .Values.docker_registry }}/{{ .Values.container_name }}:{{ .Values.revision }}
+          image: {{ .Values.docker_registry }}:{{ .Values.revision }}
           imagePullPolicy: Always
           resources:
             requests:
