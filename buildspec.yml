@@ -8,11 +8,12 @@ phases:
   install:
     runtime-versions:
         ruby: 2.6
+    commands:
+      - aws eks update-kubeconfig --name $CLUSTER 
+      - aws ecr get-login --region us-west-2 --no-include-email | bash
 
   pre_build:
     commands:
-      - env
-      - echo "aaaaa $ECR"
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
@@ -28,10 +29,15 @@ phases:
 
   build:
     commands:
-      - ./launcher bootstrap app 
+      #- ./launcher bootstrap app 
   post_build:
     commands:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - docker tag local_discourse/app:latest "$ECR:latest"
       - echo "docker push $ECR:latest"
       - docker push "$ECR:latest"
+      # Deploy
+      - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
+      - cd discourse.mozilla.org
+      - helm template -f k8s/values/dev.yaml \
+        --set docker_registry="$ECR",rev=latest k8s/
