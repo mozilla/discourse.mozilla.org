@@ -1,0 +1,22 @@
+env:
+  LANG: en_US.UTF-8
+  DISCOURSE_CDN_URL: https://cdn-staging.discourse.mozilla-community.org
+  DISCOURSE_LOG_SIDEKIQ: 1
+  DISCOURSE_LOG_SIDEKIQ_INTERVAL: 1
+
+expose:
+  - "80:80"
+
+params:
+  ## Which Git revision should this container use? (default: tests-passed)
+  version: tests-passed
+
+hooks:
+  after_code:
+    - exec:
+        cd: $home/plugins
+        cmd:
+          - echo "a"
+run:
+  - exec: echo "Beginning of custom commands"
+
