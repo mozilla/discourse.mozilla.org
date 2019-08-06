@@ -32,12 +32,11 @@ phases:
       #- ./launcher bootstrap app 
   post_build:
     commands:
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - docker tag local_discourse/app:latest "$ECR:latest"
-      - echo "docker push $ECR:latest"
-      - docker push "$ECR:latest"
+      #- $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      #- docker tag local_discourse/app:latest "$ECR:latest"
+      #- echo "docker push $ECR:latest"
+      #- docker push "$ECR:latest"
       # Deploy
       - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
       - cd discourse.mozilla.org
-      - helm template -f k8s/values/dev.yaml \
-        --set docker_registry="$ECR",rev=latest k8s/
+      - helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",rev=latest k8s/
