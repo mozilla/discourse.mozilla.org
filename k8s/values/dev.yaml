@@ -4,7 +4,7 @@ namespace: discourse-dev
 # Deployment variables
 replicas: 1
 arn_role: xxx
-revision: release
+revision: latest
 memory_req: 512Mi
 memory_limit: 1024Mi
 cpu_req: 0.5
