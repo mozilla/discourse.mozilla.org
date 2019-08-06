@@ -22,7 +22,7 @@ phases:
       - cd discourse_docker
       #- mkdir -p includes && mkdir -p containers
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
-      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-dev.yml
+      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-dev.yml -O containers/app.yml
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
       # TODO switch to upstream repo when ready
