@@ -36,5 +36,5 @@ spec:
             - containerPort: {{ .Values.port }}
           envFrom:
           - configMapRef:
-            name: {{ .Values.name }}
+              name: {{ .Values.name }}
 
