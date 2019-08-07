@@ -2,12 +2,10 @@ templates:
   - "templates/postgres.template.yml"
   - "templates/redis.template.yml"
   - "templates/web.template.yml"
-  - "templates/sshd.template.yml"
 
 ## which TCP/IP ports should this container expose?
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
-  - "2222:22" # fwd host port 2222 to container port 22 (ssh)
 
 params:
   db_default_text_search_config: "pg_catalog.english"
@@ -63,15 +61,4 @@ hooks:
 run:
   - exec: echo "Beginning of custom commands"
 
-  ## If you want to configure password login for root, uncomment and change:
-  #- exec: apt-get -y install whois # for mkpasswd
-  ## Use only one of the following lines:
-  #- exec: /usr/sbin/usermod -p 'PASSWORD_HASH' root
-  #- exec: /usr/sbin/usermod -p "$(mkpasswd -m sha-256 'RAW_PASSWORD')" root
-
-  ## If you want to authorized additional users, uncomment and change:
-  #- exec: ssh-import-id username
-  #- exec: ssh-import-id anotherusername
-
   - exec: echo "End of custom commands"
-  - exec: awk -F\# '{print $1;}' ~/.ssh/authorized_keys | awk 'BEGIN { print "Authorized SSH keys for this container:"; } NF>=2 {print $NF;}'
