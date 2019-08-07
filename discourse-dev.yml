@@ -1,15 +1,16 @@
 templates:
-  - "includes/env.yml"
+  - "templates/redis.template.yml"
 
 env:
   LANG: en_US.UTF-8
-  DISCOURSE_CDN_URL: https://cdn-staging.discourse.mozilla-community.org
-  DISCOURSE_LOG_SIDEKIQ: 1
-  DISCOURSE_LOG_SIDEKIQ_INTERVAL: 1
-
-expose:
-  - "80:80"
 
 params:
   version: tests-passed
 
+volumes:
+  - volume:
+        host: /var/discourse/shared/redis
+        guest: /shared
+  - volume:
+        host: /var/discourse/shared/redis/log/var-log
+        guest: /var/log
