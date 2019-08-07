@@ -13,12 +13,3 @@ expose:
 params:
   version: tests-passed
 
-hooks:
-  after_code:
-    - exec:
-        cd: $home/plugins
-        cmd:
-          - echo "a"
-run:
-  - exec: echo "Beginning of custom commands"
-
