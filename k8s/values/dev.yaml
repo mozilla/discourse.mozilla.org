@@ -10,7 +10,9 @@ memory_limit: 1024Mi
 cpu_req: 0.5
 cpu_limit: 1
 port: 80
+ingress_replicas: 1
 
+domain_name: discourse-dev.itsre-apps.mozit.cloud
 # Docker variables
 docker_registry: discourse
 
