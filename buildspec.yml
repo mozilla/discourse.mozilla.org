@@ -20,18 +20,17 @@ phases:
     commands:
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
-      - mkdir -p containers
-      #- mkdir -p includes && mkdir -p containers
+      - mkdir -p includes && mkdir -p containers
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
       - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-dev.yml -O containers/app.yml
-      #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
-      #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
+      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
       # TODO switch to upstream repo when ready
       #- wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/includes/env.yml -O includes/env.yml
 
-      #- sed -i "s/db-host/$DB_HOST/" includes/env.yml
-      #- sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
-      #- sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
+      - sed -i "s/db-host/$DB_HOST/" includes/env.yml
+      - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
+      - sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
 
   build:
     commands:
