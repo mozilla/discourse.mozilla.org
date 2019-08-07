@@ -18,22 +18,13 @@ params:
 
 env:
   LANG: en_US.UTF-8
-  ## TODO: How many concurrent web requests are supported?
-  ## With 2GB we recommend 3-4 workers, with 1GB only 2
-  UNICORN_WORKERS: 3
-  ##
-  ## TODO: List of comma delimited emails that will be made admin and developer
-  ## on initial signup example 'user1@example.com, user2@example.com'
-  DISCOURSE_DEVELOPER_EMAILS: 'SMTPDEVELOPER'
-  ##
-  ## TODO: The domain name this Discourse instance will respond to
-  DISCOURSE_HOSTNAME: 'WEBHOSTNAME'
-  ##
-  ## TODO: The mailserver this Discourse instance will use
-  DISCOURSE_SMTP_ADDRESS: 'SMTPADDRESS'
-  DISCOURSE_SMTP_PORT: 'SMTPPORT'
-  DISCOURSE_SMTP_USER_NAME: 'SMTPLOGIN'
-  DISCOURSE_SMTP_PASSWORD: 'SMTPPASSWORD'
+  UNICORN_WORKERS: 1
+  DISCOURSE_DEVELOPER_EMAILS: 'user1@mozilla.com'
+  DISCOURSE_HOSTNAME: 'fake.mozilla.com'
+  DISCOURSE_SMTP_ADDRESS: 'fake-smtp.mozilla.com'
+  DISCOURSE_SMTP_PORT: '465'
+  DISCOURSE_SMTP_USER_NAME: 'fake'
+  DISCOURSE_SMTP_PASSWORD: 'fake'
   ##
   ## The CDN address for this Discourse instance (configured to pull)
   #DISCOURSE_CDN_URL: //discourse-cdn.example.com
@@ -57,8 +48,6 @@ hooks:
           - mkdir -p plugins
           - git clone https://github.com/discourse/docker_manager.git
 
-## Remember, this is YAML syntax - you can only have one block with a name
 run:
   - exec: echo "Beginning of custom commands"
-
   - exec: echo "End of custom commands"
