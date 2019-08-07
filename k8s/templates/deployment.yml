@@ -34,4 +34,7 @@ spec:
               cpu: {{ .Values.cpu_limit }}
           ports:
             - containerPort: {{ .Values.port }}
+          envFrom:
+          - configMapRef:
+            name: {{ .Values.name }}
 
