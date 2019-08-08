@@ -11,6 +11,7 @@ cpu_req: 0.5
 cpu_limit: 1
 port: 80
 ingress_replicas: 1
+ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/8a1d582d-3af0-4146-9e24-fb10ea4eb614
 
 domain_name: discourse-dev.itsre-apps.mozit.cloud
 # Docker variables

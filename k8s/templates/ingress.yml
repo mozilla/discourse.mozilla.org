@@ -5,24 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   annotations:
     kubernetes.io/ingress.class: "nginx-{{ .Values.namespace }}"
-    certmanager.k8s.io/cluster-issuer: letsencrypt-production
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: 'arn:aws:acm:us-west-2:783633885093:certificate/8a1d582d-3af0-4146-9e24-fb10ea4eb614'
-    nginx.ingress.kubernetes.io/proxy-body-size: 32m
-    nginx.ingress.kubernetes.io/whitelist-source-range: 80.229.234.232/32, 95.91.212.42/32
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    #nginx.ingress.kubernetes.io/enable-cors: "true"
-    #nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    #nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    #nginx.ingress.kubernetes.io/configuration-snippet: |
-    #        more_set_headers "X-Frame-Options: DENY" "X-Frame-Options: DENY" "X-XSS-Protection: 1" "X-Content-Type-Options: nosniff" "Strict-Transport-Security: max-age=63072000" "Content-Security-Policy: default-src 'self'; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 spec:
-  tls:
-  - hosts:
-    - {{ .Values.domain_name }}
-    {{- with .Values.secondary_domain_name }}
-    - {{ . }}
-    {{- end }}
-    secretName: {{ .Values.name}}-secret
   rules:
   - host: {{ .Values.domain_name }}
     http:
