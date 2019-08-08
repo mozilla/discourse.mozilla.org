@@ -5,12 +5,6 @@ templates:
   - "includes/contribute.yml"
   - "includes/headers.yml"
 
-env:
-  LANG: en_US.UTF-8
-  DISCOURSE_CDN_URL: https://cdn-staging.discourse.mozilla-community.org
-  DISCOURSE_LOG_SIDEKIQ: 1
-  DISCOURSE_LOG_SIDEKIQ_INTERVAL: 1
-
 expose:
   - "80:80"
 
