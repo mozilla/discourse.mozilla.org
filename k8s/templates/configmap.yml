@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
 data:
-  DISCOURSE_DEVELOPER_EMAILS: 'lmcardle@mozilla.com'
+  DISCOURSE_DEVELOPER_EMAILS: 'lmcardle@mozilla.com, alberto@mozilla.com'
   LANG: 'en_US.UTF-8'
   UNICORN_SIDEKIQS: '1'
   UNICORN_WORKERS: '1'

@@ -32,6 +32,8 @@ phases:
       - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
       - sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
       - sed -i "s/discourse-hostname/$D_HOSTNAME/" includes/env.yml
+      - sed -i "s/smtp-username/$SMTP_USER/" includes/env.yml
+      - sed -i "s/smtp-password/$SMTP_PW/" includes/env.yml
 
   build:
     commands:
