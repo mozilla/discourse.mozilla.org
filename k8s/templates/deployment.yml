@@ -43,19 +43,4 @@ spec:
             readOnly: false
       volumes:
       - name: {{ .Values.name }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.name }}
-
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: {{ .Values.namespace }}
-  name: {{ .Values.name }}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
+        emptyDir: {}
