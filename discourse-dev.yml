@@ -12,14 +12,6 @@ params:
   ## Which Git revision should this container use? (default: tests-passed)
   version: tests-passed
 
-#volumes:
-#  - volume:
-#      host: /srv/marathon-efs/discourse/shared/web-only
-#      guest: /shared
-#  - volume:
-#      host: /srv/marathon-efs/discourse/shared/web-only/log/var-log
-#      guest: /var/log
-
 hooks:
   after_code:
     - exec:
