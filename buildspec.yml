@@ -34,7 +34,7 @@ phases:
       - sed -i "s/discourse-hostname/$D_HOSTNAME/" includes/env.yml
       - sed -i "s/smtp-username/$SMTP_USER/" includes/env.yml
       - sed -i "s/smtp-password/$SMTP_PW/" includes/env.yml
-      - sed -i "s/cdn-url/$CDN_URL/" includes/env.yml
+      - sed -i "s,cdn-url,$CDN_URL," includes/env.yml
 
   build:
     commands:
