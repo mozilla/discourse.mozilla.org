@@ -3,6 +3,8 @@ version: 0.2
 env:
   parameter-store:
     DB_PWD: "/discourse/dev/db/secret"
+    AUTH0_CLIENT: "/discourse/dev/auth0-client-id"
+    AUTH0_SECRET: "/discourse/dev/auth0-client-secret"
 
 phases:
   install:
@@ -29,6 +31,8 @@ phases:
       - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/includes/env.yml -O includes/env.yml
 
       - sed -i "s/db-host/$DB_HOST/" includes/env.yml
+      - sed -i "s/auth0-client-id/$AUTH0_CLIENT/" includes/env.yml
+      - sed -i "s/auth0-client-secret/$AUTH0_SECRET/" includes/env.yml
       - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
       - sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
       - sed -i "s/discourse-hostname/$D_HOSTNAME/" includes/env.yml
