@@ -11,7 +11,7 @@ params:
     object-src 'none';
     frame-ancestors 'none';
     base-uri 'none';
-    form-action 'self';
+    form-action 'self' https://auth.mozilla.auth0.com;
     upgrade-insecure-requests;
     report-uri /csp_reports;
 
