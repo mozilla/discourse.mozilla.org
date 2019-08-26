@@ -1,14 +1,5 @@
 version: 0.2
 
-# Codebuild does not support dynamic values for parameter-store
-# we are calling aws ssm get-parameter. Revisit if this is possible
-# in the future
-#env:
-#  parameter-store:
-#    DB_PWD: "/discourse/$ENV/db/secret"
-#    AUTH0_CLIENT: "/discourse/$ENV/auth0-client-id"
-#    AUTH0_SECRET: "/discourse/$ENV/auth0-client-secret"
-
 phases:
   install:
     runtime-versions:
