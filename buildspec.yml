@@ -1,6 +1,8 @@
 version: 0.2
 
 env:
+  variables:
+    ENV: "$ENV"
   parameter-store:
     DB_PWD: "/discourse/$ENV/db/secret"
     AUTH0_CLIENT: "/discourse/$ENV/auth0-client-id"
