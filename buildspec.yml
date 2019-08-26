@@ -2,9 +2,9 @@ version: 0.2
 
 env:
   parameter-store:
-    DB_PWD: "/discourse/dev/db/secret"
-    AUTH0_CLIENT: "/discourse/dev/auth0-client-id"
-    AUTH0_SECRET: "/discourse/dev/auth0-client-secret"
+    DB_PWD: "/discourse/$ENV/db/secret"
+    AUTH0_CLIENT: "/discourse/$ENV/auth0-client-id"
+    AUTH0_SECRET: "/discourse/$ENV/auth0-client-secret"
 
 phases:
   install:
@@ -24,7 +24,7 @@ phases:
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
-      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-dev.yml -O containers/app.yml
+      - wget --https-only -q "https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-$ENV.yml" -O containers/app.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
       - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
       # TODO switch to upstream repo when ready
@@ -54,4 +54,4 @@ phases:
       # TODO: use upstream repo when ready
       - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
       - cd discourse.mozilla.org
-      - ../linux-amd64/helm template -f k8s/values/dev.yaml --set docker_registry="$ECR",revision="$CODEBUILD_RESOLVED_SOURCE_VERSION" k8s/ | kubectl apply -f -
+      - ../linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$CODEBUILD_RESOLVED_SOURCE_VERSION" k8s/ | kubectl apply -f -
