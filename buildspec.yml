@@ -1,12 +1,13 @@
 version: 0.2
 
-env:
-  variables:
-    ENV: "$ENV"
-  parameter-store:
-    DB_PWD: "/discourse/$ENV/db/secret"
-    AUTH0_CLIENT: "/discourse/$ENV/auth0-client-id"
-    AUTH0_SECRET: "/discourse/$ENV/auth0-client-secret"
+# Codebuild does not support dynamic values for parameter-store
+# we are calling aws ssm get-parameter. Revisit if this is possible
+# in the future
+#env:
+#  parameter-store:
+#    DB_PWD: "/discourse/$ENV/db/secret"
+#    AUTH0_CLIENT: "/discourse/$ENV/auth0-client-id"
+#    AUTH0_SECRET: "/discourse/$ENV/auth0-client-secret"
 
 phases:
   install:
@@ -22,6 +23,9 @@ phases:
 
   pre_build:
     commands:
+      - DB_PWD=$(aws ssm get-parameter --name "/discourse/$ENV/db/secret" | awk '/Value/ {print $2}' | cut -d'"' -f2)
+      - AUTH0_CLIENT=$(aws ssm get-parameter --name "/discourse/$ENV/auth0-client-id" | awk '/Value/ {print $2}' | cut -d'"' -f2)
+      - AUTH0_SECRET=$(aws ssm get-parameter --name "/discourse/$ENV/auth0-client-secret" | awk '/Value/ {print $2}' | cut -d'"' -f2)
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
