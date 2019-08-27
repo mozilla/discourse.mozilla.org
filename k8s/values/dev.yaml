@@ -3,7 +3,7 @@ namespace: discourse-dev
 
 # Deployment variables
 replicas: 1
-arn_role: xxx
+arn_role: arn:aws:iam::783633885093:role/discourse/discourse-dev
 revision: latest
 memory_req: 512Mi
 memory_limit: 1024Mi
