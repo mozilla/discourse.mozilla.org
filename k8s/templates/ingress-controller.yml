@@ -163,6 +163,7 @@ metadata:
     app: {{ .Values.name }}
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.ssl_cert_arn }} 
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
   type: LoadBalancer
   selector:
