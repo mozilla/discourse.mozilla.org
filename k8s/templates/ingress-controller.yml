@@ -8,6 +8,7 @@ metadata:
 data:
   enable-vts-status: "true"
   proxy-buffer-size: "16k"
+  use-forwarded-headers: "true"
 ---
 
 apiVersion: v1
