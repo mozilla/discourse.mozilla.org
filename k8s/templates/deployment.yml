@@ -37,10 +37,3 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ .Values.name }}
-          volumeMounts:
-          - mountPath: /shared
-            name: {{ .Values.name }}
-            readOnly: false
-      volumes:
-      - name: {{ .Values.name }}
-        emptyDir: {}
