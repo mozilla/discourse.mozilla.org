@@ -27,7 +27,8 @@ hooks:
           - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar.git
 run:
   - exec: echo "Beginning of custom commands"
-  - exec: ln -sf /dev/stdout /shared/log/rails/production.log
+  #- exec: ln -sf /dev/stdout /shared/log/rails/production.log
+  - exec: ln -sf /proc/1/fd/1 /shared/log/rails/production.log
   - exec: ls -latr /shared/log/rails
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
