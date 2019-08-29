@@ -18,7 +18,6 @@ phases:
       - cd discourse_docker
       # Rails log to STDOUT
       #- echo "RUN ln -sf /dev/stdout /shared/log/rails/production.log" >> image/base/Dockerfile
-      - echo 'module(load="omstdout") \n action(type="omstdout")/n' >> /etc/rsyslog.d/stdout.conf
       - mkdir -p includes && mkdir -p containers
       #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
       - wget --https-only -q "https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-$ENV.yml" -O containers/app.yml
