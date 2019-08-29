@@ -37,3 +37,27 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ .Values.name }}
+          volumeMounts:
+          - mountPath: /shared/log
+            name: logs
+        - name: logger
+          image: alpine:latest
+          command:
+          - /bin/sh
+          - -c
+          args:
+          - sleep 60 && tail -f /logs/rails/production.log
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 200m
+            limits:
+              memory: 64Mi
+              cpu: 50m
+          volumeMounts:
+          - mountPath: /logs
+            name: logs
+      volumes:
+      - emptyDir: {}
+        name: logs
+
