@@ -48,10 +48,10 @@ spec:
           args:
           - sleep 60 && tail -f /logs/rails/production.log
           resources:
-            requests:
+            limits:
               memory: 128Mi
               cpu: 200m
-            limits:
+            requests:
               memory: 64Mi
               cpu: 50m
           volumeMounts:
