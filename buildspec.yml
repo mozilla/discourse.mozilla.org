@@ -5,7 +5,7 @@ phases:
     runtime-versions:
         ruby: 2.6
     commands:
-      - aws eks update-kubeconfig --name $CLUSTER 
+      - aws eks update-kubeconfig --name $CLUSTER
       - aws ecr get-login --region us-west-2 --no-include-email | bash
       - wget -q https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
       - wget -q https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz.sha256
@@ -38,10 +38,11 @@ phases:
       - sed -i "s,cdn-url,$CDN_URL," includes/env.yml
       - sed -i "s,uploads-bucket,$S3_UPLOADS," includes/env.yml
       - sed -i "s,s3-region,$S3_REGION," includes/env.yml
+      - sed -i "s,reply-by-email-address,r+%{reply_key}@$D_HOSTNAME," includes/env.yml
 
   build:
     commands:
-      - ./launcher bootstrap app 
+      - ./launcher bootstrap app
       - cd ..
   post_build:
     commands:
