@@ -48,10 +48,12 @@ phases:
   post_build:
     commands:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - docker tag local_discourse/app:latest "$ECR:$CODEBUILD_RESOLVED_SOURCE_VERSION"
-      - docker push "$ECR:$CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - DOCKER_REVISION=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:7}:`date +%s`
+      - echo $DOCKER_REVISION
+      - docker tag local_discourse/app:latest "$ECR:$DOCKER_REVISION"
+      - docker push "$ECR:$DOCKER_REVISION"
       # Deploy
       # TODO: use upstream repo when ready
       - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
       - cd discourse.mozilla.org
-      - ../linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$CODEBUILD_RESOLVED_SOURCE_VERSION" k8s/ | kubectl apply -f -
+      - ../linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$DOCKER_REVISION" k8s/ | kubectl apply -f -
