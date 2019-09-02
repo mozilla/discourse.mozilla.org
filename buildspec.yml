@@ -38,7 +38,8 @@ phases:
       - sed -i "s,cdn-url,$CDN_URL," includes/env.yml
       - sed -i "s,uploads-bucket,$S3_UPLOADS," includes/env.yml
       - sed -i "s,s3-region,$S3_REGION," includes/env.yml
-      - sed -i "s,reply-by-email-address,r+%{reply_key}@$D_HOSTNAME," includes/env.yml
+      - sed -i "s,reply-by-email-address,replies+%{reply_key}@$D_HOSTNAME," includes/env.yml
+      - sed -i "s,notification-email,notifications@$D_HOSTNAME," includes/env.yml
 
   build:
     commands:
