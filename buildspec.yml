@@ -48,7 +48,7 @@ phases:
   post_build:
     commands:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - export DOCKER_REVISION=`echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7`:`date +%s`
+      - export DOCKER_REVISION=`echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7`-`date +%s`
       - echo $DOCKER_REVISION
       - docker tag local_discourse/app:latest "$ECR:$DOCKER_REVISION"
       - docker push "$ECR:$DOCKER_REVISION"
