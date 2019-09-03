@@ -16,8 +16,6 @@ phases:
     commands:
       - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
-      # Rails log to STDOUT
-      #- echo "RUN ln -sf /dev/stdout /shared/log/rails/production.log" >> image/base/Dockerfile
       - mkdir -p includes && mkdir -p containers
       - mv ../discourse-$ENV.yml containers/app.yml
       - mv ../includes/* includes/
@@ -48,8 +46,4 @@ phases:
       - echo $DOCKER_REVISION
       - docker tag local_discourse/app:latest "$ECR:$DOCKER_REVISION"
       - docker push "$ECR:$DOCKER_REVISION"
-      # Deploy
-      # TODO: use upstream repo when ready
-      - git clone https://github.com/The-smooth-operator/discourse.mozilla.org.git
-      - cd discourse.mozilla.org
       - ../linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$DOCKER_REVISION" k8s/ | kubectl apply -f -
