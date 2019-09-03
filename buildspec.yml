@@ -14,7 +14,7 @@ phases:
 
   pre_build:
     commands:
-      - git clone -q https://github.com/discourse/discourse_docker.git
+      - git clone -q --depth 1 https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
       - mkdir -p includes && mkdir -p containers
       - mv ../discourse-$ENV.yml containers/app.yml
@@ -46,4 +46,4 @@ phases:
       - echo $DOCKER_REVISION
       - docker tag local_discourse/app:latest "$ECR:$DOCKER_REVISION"
       - docker push "$ECR:$DOCKER_REVISION"
-      - ../linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$DOCKER_REVISION" k8s/ | kubectl apply -f -
+      - linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$DOCKER_REVISION" k8s/ | kubectl apply -f -
