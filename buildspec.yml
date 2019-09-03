@@ -19,12 +19,8 @@ phases:
       # Rails log to STDOUT
       #- echo "RUN ln -sf /dev/stdout /shared/log/rails/production.log" >> image/base/Dockerfile
       - mkdir -p includes && mkdir -p containers
-      #- wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/discourse_staging.yml -O containers/app.yml
-      - wget --https-only -q "https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/discourse-$ENV.yml" -O containers/app.yml
-      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/contribute.yml -O includes/contribute.yml
-      - wget --https-only -q https://raw.githubusercontent.com/mozilla/discourse.mozilla.org/staging/includes/headers.yml  -O includes/headers.yml
-      # TODO switch to upstream repo when ready
-      - wget --https-only -q https://raw.githubusercontent.com/The-smooth-operator/discourse.mozilla.org/master/includes/env.yml -O includes/env.yml
+      - mv ../discourse-$ENV.yml containers/app.yml
+      - mv ../includes/* includes/
 
       - sed -i "s/db-host/$DB_HOST/" includes/env.yml
       - sed -i "s/auth0-client-id/$AUTH0_CLIENT/" includes/env.yml
