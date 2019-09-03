@@ -1,0 +1,20 @@
+name: discourse
+namespace: discourse-staging
+
+# Deployment variables
+replicas: 1
+arn_role: arn:aws:iam::783633885093:role/discourse/discourse-staging
+revision: latest
+memory_req: 512Mi
+memory_limit: 1024Mi
+cpu_req: 0.5
+cpu_limit: 1
+port: 80
+ingress_replicas: 1
+ssl_cert_arn:  arn:aws:acm:us-west-2:783633885093:certificate/10099228-1974-4d0a-be89-efd94bd481b2
+
+domain_name: discourse-staging.itsre-apps.mozit.cloud
+# Docker variables
+docker_registry: discourse
+
+

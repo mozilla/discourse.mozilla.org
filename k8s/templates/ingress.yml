@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.name}}-nginx-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx-{{ .Values.namespace }}"
+spec:
+  rules:
+  - host: {{ .Values.domain_name }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.name }}
+          servicePort: 80

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}
+    k8s-app: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      k8s-app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        k8s-app: {{ .Values.name }}
+      annotations:
+        iam.amazonaws.com/role: {{ .Values.arn_role }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.docker_registry }}:{{ .Values.revision }}
+          imagePullPolicy: Always
+          command: ['/sbin/boot']
+          resources:
+            requests:
+              memory: {{ .Values.memory_req }}
+              cpu: {{ .Values.cpu_req }}
+            limits:
+              memory: {{ .Values.memory_limit }}
+              cpu: {{ .Values.cpu_limit }}
+          ports:
+            - containerPort: {{ .Values.port }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.name }}
+          volumeMounts:
+          - mountPath: /shared/log
+            name: logs
+        - name: logger
+          image: alpine:latest
+          command:
+          - /bin/sh
+          - -c
+          args:
+          - sleep 60 && tail -f /logs/rails/production.log
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 200m
+            requests:
+              memory: 64Mi
+              cpu: 50m
+          volumeMounts:
+          - mountPath: /logs
+            name: logs
+      volumes:
+      - emptyDir: {}
+        name: logs
+

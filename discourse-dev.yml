@@ -1,0 +1,33 @@
+templates:
+  - "templates/web.template.yml"
+  - "templates/web.ratelimited.template.yml"
+  - "includes/env.yml"
+  - "includes/contribute.yml"
+  - "includes/headers.yml"
+
+expose:
+  - "80:80"
+
+params:
+  ## Which Git revision should this container use? (default: tests-passed)
+  version: tests-passed
+
+hooks:
+  after_code:
+    - exec:
+        cd: $home/plugins
+        cmd:
+          - mkdir -p plugins
+          - git clone https://github.com/discourse/discourse-akismet.git
+          - git clone https://github.com/mozilla/discourse-mozilla-iam.git -b development
+          - git clone https://github.com/mozilla/discourse-expose-emails-in.git -b development
+          - git clone https://github.com/mozilla/discourse-post-read-email.git -b development
+          - git clone https://github.com/discourse/discourse-solved.git
+          - git clone https://github.com/mozilla/discourse-sidekiq-monitor.git
+          - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar.git
+          - git clone https://github.com/mozilla/discourse-auto-email-in
+run:
+  - exec: echo "Beginning of custom commands"
+  ## If you want to set the 'From' email address for your first registration, uncomment and change:
+  ## After getting the first signup email, re-comment the line. It only needs to run once.
+  #- exec: rails r "SiteSetting.notification_email='discourse@discourse-dev.itsre-apps.mozit.cloud'"
