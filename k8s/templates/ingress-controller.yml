@@ -9,6 +9,8 @@ data:
   enable-vts-status: "true"
   proxy-buffer-size: "16k"
   use-forwarded-headers: "true"
+  ssl-redirect: "true"
+  force-ssl-redirect: "true"
 ---
 
 apiVersion: v1
@@ -165,6 +167,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.ssl_cert_arn }} 
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
 spec:
   type: LoadBalancer
   selector:
