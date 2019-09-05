@@ -11,6 +11,10 @@ data:
   use-forwarded-headers: "true"
   ssl-redirect: "true"
   force-ssl-redirect: "true"
+  # Rate limitting: defaults x7
+  limit-rps: "84"
+  limit-rpm: "1400"
+  limit-connections: "140"
 ---
 
 apiVersion: v1
