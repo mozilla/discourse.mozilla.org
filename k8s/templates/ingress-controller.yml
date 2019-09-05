@@ -12,6 +12,10 @@ data:
   ssl-redirect: "true"
   force-ssl-redirect: "true"
   proxy-body-size: 4m
+  # Rate limitting: defaults x7
+  limit-rps: "84"
+  limit-rpm: "1400"
+  limit-connections: "140"
 ---
 
 apiVersion: v1
