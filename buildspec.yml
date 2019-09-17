@@ -34,7 +34,7 @@ phases:
       - sed -i "s,s3-region,$S3_REGION," includes/env.yml
       - sed -i "s,reply-by-email-address,replies+%{reply_key}@$D_HOSTNAME," includes/env.yml
       - sed -i "s,notification-email,notifications@$D_HOSTNAME," includes/env.yml
-      - sed -i "s,tests-passed,$CODE_REVISION," containers/app.yml
+      - sed -i "s,code-revision,$CODE_REVISION," containers/app.yml
 
   build:
     commands:

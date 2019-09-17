@@ -8,8 +8,7 @@ expose:
   - "80:80"
 
 params:
-  ## Which Git revision should this container use? (default: tests-passed)
-  version: tests-passed
+  version: code-revision # overwritten
 
 hooks:
   after_code:
