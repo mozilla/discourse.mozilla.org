@@ -1,0 +1,20 @@
+name: discourse
+namespace: discourse-prod
+
+# Deployment variables
+replicas: 5
+arn_role: arn:aws:iam::783633885093:role/discourse/discourse-prod
+revision: latest
+memory_req: 512Mi
+memory_limit: 1024Mi
+cpu_req: 0.5
+cpu_limit: 1
+port: 80
+ingress_replicas: 1
+ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/44cb3e21-15e3-4c1f-b255-bde592f40f1e
+
+domain_name: discourse-prod.itsre-apps.mozit.cloud
+
+docker_registry: discourse
+
+
