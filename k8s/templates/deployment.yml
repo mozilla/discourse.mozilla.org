@@ -7,7 +7,6 @@ metadata:
     app: {{ .Values.name }}
     k8s-app: {{ .Values.name }}
 spec:
-  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.name }}

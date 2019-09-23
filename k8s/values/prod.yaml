@@ -2,7 +2,6 @@ name: discourse
 namespace: discourse-prod
 
 # Deployment variables
-replicas: 5
 arn_role: arn:aws:iam::783633885093:role/discourse/discourse-prod
 revision: latest
 memory_req: 512Mi
@@ -17,4 +16,7 @@ domain_name: discourse-prod.itsre-apps.mozit.cloud
 
 docker_registry: discourse
 
-
+# Horizontal autoscaler
+hpa_min: 3
+hpa_max: 15
+hpa_target: 75
