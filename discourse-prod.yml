@@ -3,6 +3,7 @@ templates:
   - "includes/env.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
+  - "includes/after_build.yml"
 
 expose:
   - "80:80"

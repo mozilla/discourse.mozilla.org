@@ -1,0 +1,38 @@
+run:
+  - exec: echo "Running after build ruby script"
+  - file:
+      path: "/var/www/discourse/script/mozilla_after_build.rb"
+      chmod: "+r"
+      contents: |
+        MOZILLA_DISCOURSE_ENV = :environment # overwritten
+
+        # Email
+        SiteSetting.email_in = true
+        SiteSetting.reply_by_email_address = "reply-by-email-address" # overwritten
+        SiteSetting.reply_by_email_enabled = true
+        SiteSetting.manual_polling_enabled = true
+        SiteSetting.pop3_polling_enabled = false
+        SiteSetting.pop3_polling_host = ""
+        SiteSetting.pop3_polling_username = ""
+        SiteSetting.pop3_polling_password = ""
+
+        # Security
+        SiteSetting.content_security_policy = false # we handle this in headers.yml
+
+        if MOZILLA_DISCOURSE_ENV == :dev
+          SiteSetting.title = "Mozilla Discourse Dev"
+          SiteSetting.show_create_topics_notice = false
+          SiteSetting.disable_emails = "no"
+        end
+
+        if MOZILLA_DISCOURSE_ENV == :staging
+          SiteSetting.title = "Mozilla Discourse Staging"
+          User.where(moderator: true).update(moderator: false)
+          SiteSetting.disable_emails = "non-staff"
+        end
+
+        if MOZILLA_DISCOURSE_ENV == :prod
+          SiteSetting.disable_emails = "yes"
+          SiteSetting.alternative_reply_by_email_addresses = "discourse+%{reply_key}@mozilla-community.org"
+        end
+  - exec: rails r script/mozilla_after_build.rb
