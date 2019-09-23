@@ -23,7 +23,7 @@ hooks:
           - git clone https://github.com/discourse/discourse-solved.git
           - git clone https://github.com/mozilla/discourse-sidekiq-monitor.git
           - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar.git
-          - git clone https://github.com/mozilla/discourse-auto-email-in
+          - git clone https://github.com/mozilla/discourse-auto-email-in -b development
 run:
   - exec: echo "Beginning of custom commands"
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
