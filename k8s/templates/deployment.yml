@@ -56,7 +56,23 @@ spec:
           volumeMounts:
           - mountPath: /logs
             name: logs
+        - image: itsre/remote_syslog2:0.2
+          name: remote-logger
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          volumeMounts:
+          - name: logs
+            mountPath: /logs
+          - name: remote-logger
+            mountPath: /etc/rs2
       volumes:
       - emptyDir: {}
         name: logs
-
+      - name: remote-logger
+        secret:
+          secretName: logger-secret
