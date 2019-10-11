@@ -7,17 +7,10 @@ run:
         MOZILLA_DISCOURSE_ENV = :environment # overwritten
 
         # Email
-        SiteSetting.manual_polling_enabled = true
         SiteSetting.pop3_polling_enabled = false
         SiteSetting.pop3_polling_host = ""
         SiteSetting.pop3_polling_username = ""
         SiteSetting.pop3_polling_password = ""
-        SiteSetting.email_in = true
-        SiteSetting.reply_by_email_address = "reply-by-email-address" # overwritten
-        SiteSetting.reply_by_email_enabled = true
-
-        # Security
-        SiteSetting.content_security_policy = false # we handle this in headers.yml
 
         if MOZILLA_DISCOURSE_ENV == :dev
           SiteSetting.title = "Mozilla Discourse Dev"
