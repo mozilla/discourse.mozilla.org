@@ -37,6 +37,7 @@ phases:
       - sed -i "s,email-in-domain,$SES_DOMAIN," includes/env.yml
       - sed -i "s,environment,$ENV," includes/after_build.yml
       - sed -i "s,code-revision,$CODE_REVISION," containers/app.yml
+      - sed -i "s/akismet-key/$AKISMET_API_KEY/" includes/env.yml
 
   build:
     commands:
