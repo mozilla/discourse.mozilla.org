@@ -39,6 +39,12 @@ spec:
           volumeMounts:
           - mountPath: /shared/log
             name: logs
+          livenessProbe:
+            httpGet:
+              path: /srv/status
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 5
         - name: logger
           image: alpine:latest
           command:
