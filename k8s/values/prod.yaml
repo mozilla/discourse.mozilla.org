@@ -10,7 +10,7 @@ cpu_req: 0.5
 cpu_limit: 1
 port: 80
 ingress_replicas: 1
-ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/0ba01e3b-f733-482c-85f9-e6659d3be9b5
+ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/71c1370b-a26b-4980-b6ae-e3017cb97486
 
 domain_name: discourse.mozilla.org
 
