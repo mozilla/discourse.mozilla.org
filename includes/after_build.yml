@@ -6,12 +6,6 @@ run:
       contents: |
         MOZILLA_DISCOURSE_ENV = :environment # overwritten
 
-        # Email
-        SiteSetting.pop3_polling_enabled = false
-        SiteSetting.pop3_polling_host = ""
-        SiteSetting.pop3_polling_username = ""
-        SiteSetting.pop3_polling_password = ""
-
         if MOZILLA_DISCOURSE_ENV == :dev
           SiteSetting.title = "Mozilla Discourse Dev"
           SiteSetting.show_create_topics_notice = false
@@ -22,10 +16,13 @@ run:
           SiteSetting.title = "Mozilla Discourse Staging"
           User.where(moderator: true).update(moderator: false)
           SiteSetting.disable_emails = "non-staff"
+          SiteSetting.pop3_polling_enabled = false
+          SiteSetting.pop3_polling_host = ""
+          SiteSetting.pop3_polling_username = ""
+          SiteSetting.pop3_polling_password = ""
         end
 
         if MOZILLA_DISCOURSE_ENV == :prod
-          SiteSetting.disable_emails = "yes"
           SiteSetting.alternative_reply_by_email_addresses = "discourse+%{reply_key}@mozilla-community.org"
         end
   - exec: rails r script/mozilla_after_build.rb
