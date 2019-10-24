@@ -10,9 +10,9 @@ cpu_req: 0.5
 cpu_limit: 1
 port: 80
 ingress_replicas: 1
-ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/44cb3e21-15e3-4c1f-b255-bde592f40f1e
+ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/0ba01e3b-f733-482c-85f9-e6659d3be9b5
 
-domain_name: discourse-prod.itsre-apps.mozit.cloud
+domain_name: discourse.mozilla.org
 
 docker_registry: discourse
 
