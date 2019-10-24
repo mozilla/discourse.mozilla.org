@@ -14,3 +14,12 @@ spec:
         backend:
           serviceName: {{ .Values.namespace }}
           servicePort: 80
+  {{ if .Values.secondary_domain_name }}
+  - host: {{ .Values.secondary_domain_name }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.namespace }}
+          servicePort: 80
+  {{ end }}
