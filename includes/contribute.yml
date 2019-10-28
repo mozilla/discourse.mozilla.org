@@ -19,20 +19,16 @@ run:
             "home": "https://wiki.mozilla.org/Discourse",
             "docs": "https://wiki.mozilla.org/Discourse#Documentation",
             "mailing-list": "https://discourse.mozilla.org/c/meta",
-            "irc": "irc://irc.mozilla.org/#participationsystems",
-            "irc-contacts": [
-              "@leo (bridged from slack)",
-              "@hmitsch (he/him) (bridged from slack)"
-            ],
-            "slack": "https://mozilla.slack.com/messages/participationsystems",
+            "slack": "https://mozilla.slack.com/messages/discourse",
             "slack-contacts": [
               "@leo",
-              "@hmitsch (he/him)"
+              "@alberto"
             ]
           },
           "urls": {
             "prod": "https://discourse.mozilla.org",
-            "stage": "https://discourse-staging.production.paas.mozilla.community"
+            "stage": "https://discourse-staging.itsre-apps.mozit.cloud",
+            "dev": "https://discourse-dev.itsre-apps.mozit.cloud"
           },
           "keywords": [
             "discourse",
