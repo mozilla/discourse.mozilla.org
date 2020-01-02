@@ -12,7 +12,7 @@ run:
           SiteSetting.disable_emails = "no"
         end
 
-        if MOZILLA_DISCOURSE_ENV == :staging
+        if MOZILLA_DISCOURSE_ENV == :stage
           SiteSetting.title = "Mozilla Discourse Staging"
           User.where(moderator: true).update(moderator: false)
           SiteSetting.disable_emails = "non-staff"
