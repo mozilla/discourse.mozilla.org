@@ -26,7 +26,7 @@ hooks:
           - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar.git
           - git clone https://github.com/mozilla/discourse-auto-email-in -b development
           - git clone https://github.com/mozilla/discourse-group-category-notification.git -b development
-          - git clone https://github.com/mozilla/discourse-mozilla-gcm
+          - git clone https://github.com/mozilla/discourse-mozilla-gcm -b development
 run:
   - exec: echo "Beginning of custom commands"
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
