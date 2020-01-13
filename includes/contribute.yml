@@ -27,7 +27,7 @@ run:
           },
           "urls": {
             "prod": "https://discourse.mozilla.org",
-            "stage": "https://discourse-staging.itsre-apps.mozit.cloud",
+            "stage": "https://discourse-stage.itsre-apps.mozit.cloud",
             "dev": "https://discourse-dev.itsre-apps.mozit.cloud"
           },
           "keywords": [
