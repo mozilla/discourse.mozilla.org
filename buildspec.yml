@@ -48,6 +48,6 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - export DOCKER_REVISION=`echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7`-`date +%s`
       - echo $DOCKER_REVISION
-      - docker tag local_discourse/app:latest "$ECR:$DOCKER_REVISION"
-      - docker push "$ECR:$DOCKER_REVISION"
-      - linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$DOCKER_REVISION" k8s/ | kubectl apply -f -
+      - docker tag local_discourse/app:latest "$ECR:$ENV-$DOCKER_REVISION"
+      - docker push "$ECR:$ENV-$DOCKER_REVISION"
+      - linux-amd64/helm template -f "k8s/values/$ENV.yaml" --set docker_registry="$ECR",revision="$ENV-$DOCKER_REVISION" k8s/ | kubectl apply -f -
