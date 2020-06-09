@@ -62,7 +62,7 @@ spec:
           volumeMounts:
           - mountPath: /logs
             name: logs
-        - image: itsre/remote_syslog2:0.2
+        - image: 783633885093.dkr.ecr.us-west-2.amazonaws.com/remote_syslog2:0.2
           name: remote-logger
           resources:
             limits:
