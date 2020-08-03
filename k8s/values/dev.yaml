@@ -1,5 +1,7 @@
 name: discourse
 namespace: discourse-dev
+domain_name: discourse-dev.itsre-apps.mozit.cloud
+cdn_url: cdn.discourse-dev.itsre-apps.mozit.cloud
 
 # Deployment variables
 arn_role: arn:aws:iam::783633885093:role/discourse/discourse-dev
@@ -12,7 +14,11 @@ port: 80
 ingress_replicas: 1
 ssl_cert_arn: arn:aws:acm:us-west-2:783633885093:certificate/8a1d582d-3af0-4146-9e24-fb10ea4eb614
 
-domain_name: discourse-dev.itsre-apps.mozit.cloud
+# Email
+email_domain: discourse-dev.itsre-apps.mozit.cloud
+
+auth0_callback_url: https://discourse-dev.itsre-apps.mozit.cloud/auth/auth0/callback
+
 # Docker variables
 docker_registry: discourse
 

@@ -19,25 +19,10 @@ phases:
       - mkdir -p includes && mkdir -p containers
       - mv ../discourse-$ENV.yml containers/app.yml
       - mv ../includes/* includes/
-
-      - sed -i "s/db-host/$DB_HOST/" includes/env.yml
-      - sed -i "s/auth0-client-id/$AUTH0_CLIENT/" includes/env.yml
-      - sed -i "s/auth0-client-secret/$AUTH0_SECRET/" includes/env.yml
-      - sed -i "s,auth0-callback-url,$AUTH0_CALLBACK_URL," includes/env.yml
-      - sed -i "s/redis-host/$REDIS_HOST/" includes/env.yml
-      - sed -i "s/my-non-real-password/$DB_PWD/" includes/env.yml
-      - sed -i "s/discourse-hostname/$D_HOSTNAME/" includes/env.yml
-      - sed -i "s/smtp-username/$SMTP_USER/" includes/env.yml
-      - sed -i "s,smtp-password,$SMTP_PW," includes/env.yml
-      - sed -i "s,cdn-url,$CDN_URL," includes/env.yml
-      - sed -i "s,uploads-bucket,$S3_UPLOADS," includes/env.yml
-      - sed -i "s,s3-region,$S3_REGION," includes/env.yml
-      - sed -i "s,reply-by-email-address,replies+%{reply_key}@$SES_DOMAIN," includes/env.yml
-      - sed -i "s,notification-email,notifications@$SES_DOMAIN," includes/env.yml
-      - sed -i "s,email-in-domain,$SES_DOMAIN," includes/env.yml
+      
+      # Overwrites
       - sed -i "s,environment,$ENV," includes/after_build.yml
       - sed -i "s,code-revision,$CODE_REVISION," containers/app.yml
-      - sed -i "s/akismet-key/$AKISMET_API_KEY/" includes/env.yml
 
   build:
     commands:

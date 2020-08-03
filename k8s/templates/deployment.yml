@@ -36,6 +36,8 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ .Values.name }}
+          - secretRef:
+              name: {{ .Values.name }}
           volumeMounts:
           - mountPath: /shared/log
             name: logs
