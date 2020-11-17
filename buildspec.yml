@@ -14,8 +14,9 @@ phases:
 
   pre_build:
     commands:
-      - git clone -q --depth 1 https://github.com/discourse/discourse_docker.git
+      - git clone -q https://github.com/discourse/discourse_docker.git
       - cd discourse_docker
+      - git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
       - mkdir -p includes && mkdir -p containers
       - mv ../discourse-$ENV.yml containers/app.yml
       - mv ../includes/* includes/
