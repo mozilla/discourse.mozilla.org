@@ -1,6 +1,5 @@
 templates:
   - "templates/web.template.yml"
-  - "includes/env.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
   - "includes/after_build.yml"
