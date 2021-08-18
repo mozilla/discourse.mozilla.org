@@ -34,6 +34,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        id: configure-aws-creds
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -42,8 +49,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: moderator
-          ENV: ${{ needs.prepare.outputs.ENV }}
-          TAG: ${{ needs.prepare.outputs.TAG }}
+          ENV: ${{ needs.prepare-dev.outputs.ENV }}
+          TAG: ${{ needs.prepare-dev.outputs.TAG }}
         run: |
           git clone -q https://github.com/discourse/discourse_docker.git
           cd discourse_docker
@@ -81,6 +88,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        id: configure-aws-creds
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -89,8 +103,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: moderator
-          ENV: ${{ needs.prepare.outputs.ENV }}
-          TAG: ${{ needs.prepare.outputs.TAG }}
+          ENV: ${{ needs.prepare-stage.outputs.ENV }}
+          TAG: ${{ needs.prepare-stage.outputs.TAG }}
         run: |
           git clone -q https://github.com/discourse/discourse_docker.git
           cd discourse_docker
@@ -128,6 +142,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        id: configure-aws-creds
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -136,8 +157,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: moderator
-          ENV: ${{ needs.prepare.outputs.ENV }}
-          TAG: ${{ needs.prepare.outputs.TAG }}
+          ENV: ${{ needs.prepare-prod.outputs.ENV }}
+          TAG: ${{ needs.prepare-prod.outputs.TAG }}
         run: |
           git clone -q https://github.com/discourse/discourse_docker.git
           cd discourse_docker
