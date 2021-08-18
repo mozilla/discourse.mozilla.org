@@ -1,0 +1,150 @@
+name: CI Build Check
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+  pull_request_target: {}
+
+jobs:
+  prepare-dev:
+    runs-on: ubuntu-latest
+    outputs:
+      ENV: ${{ steps.tag.outputs.env }}
+      TAG: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Tag
+        id: tag
+        run: |
+          export CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
+          echo "::set-output name=tag::$CI_COMMIT_SHORT_SHA"
+          echo "Commit for this pipeline: ";
+          echo $CI_COMMIT_SHORT_SHA;
+          export ENV="dev"
+          echo "::set-output name=env::$ENV"
+          echo "Environment for this pipeline: ";
+          echo $ENV
+
+  build-image-dev:
+    runs-on: ubuntu-latest
+    needs: prepare-dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Pre-build Image
+        id: prebuild
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: moderator
+          ENV: ${{ needs.prepare.outputs.ENV }}
+          TAG: ${{ needs.prepare.outputs.TAG }}
+        run: |
+          git clone -q https://github.com/discourse/discourse_docker.git
+          cd discourse_docker
+          git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
+          mkdir -p includes && mkdir -p containers
+          mv ../discourse-$ENV.yml containers/app.yml
+          mv ../includes/* includes/
+          sed -i "s,environment,$ENV," includes/after_build.yml
+          sed -i "s,code-revision,$TAG," containers/app.yml
+          ./launcher bootstrap app
+
+  prepare-stage:
+    runs-on: ubuntu-latest
+    outputs:
+      ENV: ${{ steps.tag.outputs.env }}
+      TAG: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Tag
+        id: tag
+        run: |
+          export CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
+          echo "::set-output name=tag::$CI_COMMIT_SHORT_SHA"
+          echo "Commit for this pipeline: ";
+          echo $CI_COMMIT_SHORT_SHA;
+          export ENV="stage"
+          echo "::set-output name=env::$ENV"
+          echo "Environment for this pipeline: ";
+          echo $ENV
+
+  build-image-stage:
+    runs-on: ubuntu-latest
+    needs: prepare-stage
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Pre-build Image
+        id: prebuild
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: moderator
+          ENV: ${{ needs.prepare.outputs.ENV }}
+          TAG: ${{ needs.prepare.outputs.TAG }}
+        run: |
+          git clone -q https://github.com/discourse/discourse_docker.git
+          cd discourse_docker
+          git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
+          mkdir -p includes && mkdir -p containers
+          mv ../discourse-$ENV.yml containers/app.yml
+          mv ../includes/* includes/
+          sed -i "s,environment,$ENV," includes/after_build.yml
+          sed -i "s,code-revision,$TAG," containers/app.yml
+          ./launcher bootstrap app
+
+  prepare-prod:
+    runs-on: ubuntu-latest
+    outputs:
+      ENV: ${{ steps.tag.outputs.env }}
+      TAG: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Tag
+        id: tag
+        run: |
+          export CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
+          echo "::set-output name=tag::$CI_COMMIT_SHORT_SHA"
+          echo "Commit for this pipeline: ";
+          echo $CI_COMMIT_SHORT_SHA;
+          export ENV="prod"
+          echo "::set-output name=env::$ENV"
+          echo "Environment for this pipeline: ";
+          echo $ENV
+
+  build-image-prod:
+    runs-on: ubuntu-latest
+    needs: prepare-prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Pre-build Image
+        id: prebuild
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: moderator
+          ENV: ${{ needs.prepare.outputs.ENV }}
+          TAG: ${{ needs.prepare.outputs.TAG }}
+        run: |
+          git clone -q https://github.com/discourse/discourse_docker.git
+          cd discourse_docker
+          git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
+          mkdir -p includes && mkdir -p containers
+          mv ../discourse-$ENV.yml containers/app.yml
+          mv ../includes/* includes/
+          sed -i "s,environment,$ENV," includes/after_build.yml
+          sed -i "s,code-revision,$TAG," containers/app.yml
+          ./launcher bootstrap app
