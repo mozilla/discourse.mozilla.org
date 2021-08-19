@@ -51,7 +51,7 @@ jobs:
         id: prebuild
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: moderator
+          ECR_REPOSITORY: discourse
           ENV: ${{ needs.prepare.outputs.ENV }}
           TAG: ${{ needs.prepare.outputs.TAG }}
         run: |
@@ -61,7 +61,6 @@ jobs:
           mkdir -p includes && mkdir -p containers
           cp ../discourse-$ENV.yml containers/app.yml
           cp ../includes/* includes/
-          sed -i "s,environment,$ENV," includes/env.yml
           sed -i "s,environment,$ENV," includes/after_build.yml
           sed -i "s,code-revision,$TAG," containers/app.yml
           ./launcher bootstrap app

@@ -1,9 +1,8 @@
 templates:
-  - "templates/web.template.yml"
+  - "includes/web.template.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
   - "includes/after_build.yml"
-  - "includes/env.yml"
 
 expose:
   - "80:80"
