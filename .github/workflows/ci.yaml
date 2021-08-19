@@ -54,11 +54,12 @@ jobs:
         run: |
           git clone -q https://github.com/discourse/discourse_docker.git
           cd discourse_docker
+          git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
           mkdir -p includes && mkdir -p containers
           cp ../discourse-$ENV.yml containers/app.yml
           cp ../includes/* includes/
           sed -i "s,environment,$ENV," includes/after_build.yml
-          sed -i "s,code-revision,$TAG," containers/app.yml
+          sed -i "s,code-revision,tests-passed," containers/app.yml
           ./launcher bootstrap app
 
   # prepare-stage:
