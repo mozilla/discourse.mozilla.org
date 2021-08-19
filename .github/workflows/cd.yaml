@@ -59,8 +59,9 @@ jobs:
           cd discourse_docker
           git checkout 86b9032bbe75cfd11476c44a5c62f8882dd8ad97
           mkdir -p includes && mkdir -p containers
-          mv ../discourse-$ENV.yml containers/app.yml
-          mv ../includes/* includes/
+          cp ../discourse-$ENV.yml containers/app.yml
+          cp ../includes/* includes/
+          sed -i "s,environment,$ENV," includes/env.yml
           sed -i "s,environment,$ENV," includes/after_build.yml
           sed -i "s,code-revision,$TAG," containers/app.yml
           ./launcher bootstrap app
