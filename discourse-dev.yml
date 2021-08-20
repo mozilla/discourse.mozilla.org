@@ -7,13 +7,8 @@ templates:
 expose:
   - "80:80"
 
-links:
-  - link:
-      name: gha_postgres_container
-      alias: postgres
-  - link:
-      name: gha_redis_container
-      alias: redis
+docker_args:
+  - "--network=gha_bridge_network"
 
 params:
   version: code-revision # overwritten
