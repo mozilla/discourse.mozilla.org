@@ -56,9 +56,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Check containers
-        id: check
-        run: docker ps -a
+      - name: Get Service Networks
+        id: networks
+        run: |
+          docker network ls
+          docker ps -a
       - name: Pre-build Image
         id: prebuild
         env:
