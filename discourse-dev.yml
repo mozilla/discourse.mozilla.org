@@ -7,6 +7,14 @@ templates:
 expose:
   - "80:80"
 
+links:
+  - link:
+      name: postgres
+      alias: postgres
+  - link:
+      name: redis
+      alias: redis
+
 params:
   version: code-revision # overwritten
 

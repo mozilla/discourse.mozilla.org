@@ -1,18 +1,15 @@
-links:
-  - link:
-      name: data
-      alias: data
-
 env:
   # CI Only
-  DISCOURSE_DB_HOST: 'data'
+  DISCOURSE_DB_HOST: 'postgres'
+  DISCOURSE_DB_NAME: 'discourse'
   DISCOURSE_DB_PASSWORD: 'discourse'
   DISCOURSE_DB_PORT: '5432'
   DISCOURSE_DB_SOCKET: ''
+  DISCOURSE_DB_USERNAME: 'discourse'
   DISCOURSE_HOSTNAME: 'discourse-dev.allizom.org'
   DISCOURSE_LOG_SIDEKIQ: 1
   DISCOURSE_LOG_SIDEKIQ_INTERVAL: 1
-  DISCOURSE_REDIS_HOST: 'data'
+  DISCOURSE_REDIS_HOST: 'redis'
   DISCOURSE_SMTP_ADDRESS: 'email-smtp.us-west-2.amazonaws.com'
   DISCOURSE_SMTP_PORT: '587'
   RAILS_ENV: production

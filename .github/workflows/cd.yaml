@@ -1,8 +1,8 @@
 name: Stage & Prod Docker Build, Tag & Push
 
 on:
-  push:
-    branches: [master]
+  # push:
+  #   branches: [master]
   release:
     types: [released]
 
