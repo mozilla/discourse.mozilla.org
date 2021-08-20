@@ -4,6 +4,10 @@ templates:
   - "includes/headers.yml"
   - "includes/after_build.yml"
 
+env:
+  # CI Only
+  DISCOURSE_DB_NAME: 'discourse-dev'
+
 expose:
   - "80:80"
 
