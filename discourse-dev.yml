@@ -1,7 +1,7 @@
 templates:
-  - "templates/web.template.yml"
+  - "includes/data.yml"
+  - "includes/moz.web.template.yml"
   - "includes/contribute.yml"
-  - "includes/env.yml"
   - "includes/headers.yml"
   - "includes/after_build.yml"
 

@@ -1,0 +1,30 @@
+# Contains to run Redis, Postgres for CI only
+
+templates:
+  - "templates/postgres.template.yml"
+  - "templates/redis.template.yml"
+
+params:
+  db_default_text_search_config: "pg_catalog.english"
+
+env:
+  LANG: en_US.UTF-8
+  LANGUAGE: en_US.UTF-8
+  LC_ALL: en_US.UTF-8
+
+volumes:
+  - volume:
+        host: /var/discourse/shared/data
+        guest: /shared
+  - volume:
+        host: /var/discourse/shared/data/log/var-log
+        guest: /var/log
+
+hooks:
+  after_postgres:
+    - exec:
+        stdin: |
+          alter user discourse with password 'discourse';
+        cmd: su - postgres -c 'psql discourse'
+
+        raise_on_fail: false
