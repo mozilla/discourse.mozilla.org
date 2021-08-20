@@ -56,17 +56,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Get Service Networks
-        id: networks
-        run: |
-          docker network ls
-          docker ps -a
       - name: Pre-build Image
         id: prebuild
         env:
           ENV: ${{ needs.prepare-dev.outputs.ENV }}
           TAG: ${{ needs.prepare-dev.outputs.TAG }}
         run: |
+          export REDIS=$(docker ps -a -q --filter ancestor=redis --format '{{.Names}}')
+          export PSQL=$(docker ps -a -q --filter ancestor=postgres:latest --format '{{.Names}}')
           git clone -q https://github.com/discourse/discourse_docker.git
           cd discourse_docker
           mkdir -p includes && mkdir -p containers
@@ -74,4 +71,6 @@ jobs:
           cp ../includes/* includes/
           sed -i "s,environment,$ENV," includes/after_build.yml
           sed -i "s,code-revision,tests-passed," containers/app.yml
+          sed -i "s,gha_postgres_container,$PSQL," containers/app.yml
+          sed -i "s,gha_redis_container,$REDIS," containers/app.yml
           ./launcher bootstrap app

@@ -9,10 +9,10 @@ expose:
 
 links:
   - link:
-      name: postgres
+      name: gha_postgres_container
       alias: postgres
   - link:
-      name: redis
+      name: gha_redis_container
       alias: redis
 
 params:
