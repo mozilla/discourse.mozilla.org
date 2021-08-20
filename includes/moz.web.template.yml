@@ -169,6 +169,12 @@ run:
 
   - exec:
       cd: $home
+      cmd:
+        - docker ps -a
+      raise_on_fail: false
+
+  - exec:
+      cd: $home
       hook: db_migrate
       cmd:
         - su discourse -c 'bundle exec rake db:migrate'
