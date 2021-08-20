@@ -1,5 +1,4 @@
 templates:
-  - "includes/data.yml"
   - "includes/moz.web.template.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
