@@ -1,15 +1,21 @@
 templates:
-  - "templates/web.template.yml"
-  - "includes/env.yml"
+  - "includes/moz.web.template.yml"
   - "includes/contribute.yml"
   - "includes/headers.yml"
   - "includes/after_build.yml"
 
+env:
+  # CI Only
+  DISCOURSE_DB_NAME: 'discourse-dev'
+
 expose:
   - "80:80"
 
+docker_args:
+  - "--network=gha_bridge_network"
+
 params:
-  version: code-revision # overwritten
+  version: 75e92e1bd7b3611df1f43fe6e22a376eca4a7285
 
 hooks:
   after_code:
