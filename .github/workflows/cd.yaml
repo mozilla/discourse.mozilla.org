@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Tag & Environment
-        id: tag_env
+        id: tag
         run: |
           export CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
           echo "::set-output name=tag::$CI_COMMIT_SHORT_SHA"
