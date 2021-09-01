@@ -83,7 +83,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: Build and Push Stage Image to ECR
         id: build-push
-        if: github.ref == 'refs/heads/master'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: discourse
@@ -101,20 +100,8 @@ jobs:
           ./launcher bootstrap app
           docker tag local_discourse/app:latest $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
-      - name: Pull Stage Image, Tag Prod, & Push Prod to ECR
-        id: pull-tag-push
-        if: github.event_name == 'release' && github.event.action == 'released'
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: discourse
-          ENV: ${{ needs.prepare.outputs.ENV }}
-          TAG: ${{ needs.prepare.outputs.TAG }}
-        run: |
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
       - name: Logut of Amazon ECR
         if: always()
         run: docker logout ${{ steps.login-ecr.outputs.registry }}

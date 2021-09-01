@@ -98,8 +98,6 @@ jobs:
           ./launcher bootstrap app
           docker tag local_discourse/app:latest $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
       - name: Logut of Amazon ECR
         if: always()
         run: docker logout ${{ steps.login-ecr.outputs.registry }}
