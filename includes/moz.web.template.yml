@@ -31,6 +31,7 @@ run:
   - exec: chown -R discourse /home/discourse
   # TODO: move to base image (anacron can not be fired up using rc.d)
   - exec: rm -f /etc/cron.d/anacron
+  - exec: sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
   - file:
      path: /etc/cron.d/anacron
      contents: |
