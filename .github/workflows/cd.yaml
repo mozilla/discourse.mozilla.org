@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       ENV: ${{ steps.tag.outputs.ENV }}
-      TAG: ${{ steps.tag.outputs.CI_COMMIT_SHORT_SHA }}
+      CI_COMMIT_SHORT_SHA: ${{ steps.tag.outputs.CI_COMMIT_SHORT_SHA }}
 
     steps:
       - name: Checkout
@@ -101,7 +101,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: discourse
           ENV: ${{ needs.prepare.outputs.ENV }}
-          TAG: ${{ needs.prepare.outputs.TAG }}
+          CI_COMMIT_SHORT_SHA: ${{ needs.prepare.outputs.CI_COMMIT_SHORT_SHA }}
 
         run: |
           export GHA_NETWORK=$(docker network ls --filter driver=bridge --filter name=github_network_ --format '{{.Name}}')
@@ -119,13 +119,13 @@ jobs:
 
           TIMESTAMP=$(date '+%F.%H%M%S')
 
-          docker tag local_discourse/app:latest ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${TIMESTAMP}
-          docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${TIMESTAMP}
+          docker tag local_discourse/app:latest ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${CI_COMMIT_SHORT_SHA}-${TIMESTAMP}
+          docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${CI_COMMIT_SHORT_SHA}-${TIMESTAMP}
 
-          docker tag local_discourse/app:latest $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
+          docker tag local_discourse/app:latest $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$CI_COMMIT_SHORT_SHA
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$CI_COMMIT_SHORT_SHA
 
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$CI_COMMIT_SHORT_SHA $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
 
       - name: Logut of Amazon ECR
