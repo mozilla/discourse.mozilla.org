@@ -1,3 +1,4 @@
+base_image: discourse/base:2.0.20220818-0047
 templates:
   - "includes/moz.web.template.yml"
   - "includes/contribute.yml"
