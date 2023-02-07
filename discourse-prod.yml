@@ -1,3 +1,4 @@
+base_image: discourse/base:2.0.20220818-0047
 templates:
   - "includes/moz.web.template.yml"
   - "includes/contribute.yml"
@@ -23,16 +24,16 @@ hooks:
         cd: $home/plugins
         cmd:
           - mkdir -p plugins
-          - git clone https://github.com/discourse/discourse-akismet.git # 11ef295b5c65684f00ccf55cb4bef5656cd0ba9b
-          - git clone https://github.com/mozilla/discourse-mozilla-iam.git # f66123785a02a67ca10d13649cea00c772f7e40a
-          - git clone https://github.com/mozilla/discourse-expose-emails-in.git # e4e92b02bd150c72585eba232a27aa4bf9e7f5fb
-          - git clone https://github.com/mozilla/discourse-post-read-email.git # 0031da69216ba759cbf5cdda4ff4ad818e4a617f
-          - git clone https://github.com/discourse/discourse-solved.git # 02981fe1d9463cee4d8f64228a74da21fc38d90b
-          - git clone https://github.com/mozilla/discourse-sidekiq-monitor.git # 34178b637ea508d2ef103b6d48d2e0c21af155dd
-          - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar.git # a5cc90fdafe523a21b5b54abe63d7798efe77b49
-          - git clone https://github.com/mozilla/discourse-auto-email-in # ca205f63e8b8852154fddd30bf09c994070727e2
-          - git clone https://github.com/mozilla/discourse-group-category-notification.git # 8be0c45e8a19c4c702a8a468e882d9968a967ee9
-          - git clone https://github.com/mozilla/discourse-mozilla-gcm # 1d15d63e6dca4d33f1ea38c9eb2395034c467ef2
+          - git clone https://github.com/discourse/discourse-akismet; cd discourse-akismet; git checkout 11ef295b5c65684f00ccf55cb4bef5656cd0ba9b
+          - git clone https://github.com/mozilla/discourse-mozilla-iam; cd discourse-mozilla-iam; git checkout f66123785a02a67ca10d13649cea00c772f7e40a
+          - git clone https://github.com/mozilla/discourse-expose-emails-in; cd discourse-expose-emails-in; git checkout e4e92b02bd150c72585eba232a27aa4bf9e7f5fb
+          - git clone https://github.com/mozilla/discourse-post-read-email; cd discourse-post-read-email; git checkout 0031da69216ba759cbf5cdda4ff4ad818e4a617f
+          - git clone https://github.com/discourse/discourse-solved; cd discourse-solved; git checkout 02981fe1d9463cee4d8f64228a74da21fc38d90b
+          - git clone https://github.com/mozilla/discourse-sidekiq-monitor; cd discourse-sidekiq-monitor; git checkout 34178b637ea508d2ef103b6d48d2e0c21af155dd
+          - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar; cd discourse-mozilla-letter-avatar; git checkout a5cc90fdafe523a21b5b54abe63d7798efe77b49
+          - git clone https://github.com/mozilla/discourse-auto-email-in; cd discourse-auto-email-in; git checkout ca205f63e8b8852154fddd30bf09c994070727e2
+          - git clone https://github.com/mozilla/discourse-group-category-notification; cd discourse-group-category-notification; git checkout 8be0c45e8a19c4c702a8a468e882d9968a967ee9
+          - git clone https://github.com/mozilla/discourse-mozilla-gcm; cd discourse-mozilla-gcm; git checkout 1d15d63e6dca4d33f1ea38c9eb2395034c467ef2
 run:
   - exec: echo "Beginning of custom commands"
   ## If you want to set the 'From' email address for your first registration, uncomment and change:

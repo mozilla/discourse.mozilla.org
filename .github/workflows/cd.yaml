@@ -2,34 +2,40 @@ name: Delivery & Release (Docker Build, Tag & Push)
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+
   release:
-    types: [released]
+    types:
+      - released
 
 jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      ENV: ${{ steps.tag.outputs.env }}
-      TAG: ${{ steps.tag.outputs.tag }}
+      ENV: ${{ steps.tag.outputs.ENV }}
+      TAG: ${{ steps.tag.outputs.CI_COMMIT_SHORT_SHA }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Set Tag & Environment
         id: tag
-        run: |
-          export CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
-          echo "::set-output name=tag::$CI_COMMIT_SHORT_SHA"
-          echo "Commit for this pipeline: ";
-          echo $CI_COMMIT_SHORT_SHA;
-          if [ ${GITHUB_REF##*/} = "master" ]; then
-            export ENV=stage
-          else
-            export ENV=prod
+        run: |-
+          CI_COMMIT_SHORT_SHA=$(git describe --abbrev=7 --always --tags)
+
+          if [[ ${GITHUB_REF##*/} = "master" ]]; then
+            ENV=stage
+
           fi
-          echo "::set-output name=env::$ENV"
-          echo "Environment for this pipeline: ";
-          echo $ENV
+
+          echo "CI_COMMIT_SHORT_SHA=${CI_COMMIT_SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "ENV=${ENV:-prod}" >> $GITHUB_OUTPUT
+
+          echo "Commit for this pipeline: ${CI_COMMIT_SHORT_SHA}"
+          echo "Environment for this pipeline: ${ENV:-prod}";
+
   build-push-promote-image:
     runs-on: ubuntu-latest
     needs: prepare
@@ -41,13 +47,16 @@ jobs:
           POSTGRES_PASSWORD: discourse
           POSTGRES_PORT: 5432
           POSTGRES_USER: discourse
+
         ports:
           - 5432:5432
+
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
       redis:
         image: redis
         options: >-
@@ -59,10 +68,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Database per CI Environment
         id: env_databases_setup
         env:
           ENV: ${{ needs.prepare.outputs.ENV }}
+
         run: |
           set -e
           set -u
@@ -71,6 +82,7 @@ jobs:
               CREATE DATABASE "discourse-$ENV";
               GRANT ALL PRIVILEGES ON DATABASE "discourse-$ENV" TO discourse;
           EOSQL
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         id: configure-aws-creds
@@ -78,9 +90,11 @@ jobs:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+
       - name: Build and Push Stage Image to ECR
         id: build-push
         env:
@@ -88,20 +102,32 @@ jobs:
           ECR_REPOSITORY: discourse
           ENV: ${{ needs.prepare.outputs.ENV }}
           TAG: ${{ needs.prepare.outputs.TAG }}
+
         run: |
           export GHA_NETWORK=$(docker network ls --filter driver=bridge --filter name=github_network_ --format '{{.Name}}')
-          git clone -q https://github.com/discourse/discourse_docker.git
-          cd discourse_docker
-          mkdir -p includes && mkdir -p containers
+
+          git clone https://github.com/discourse/discourse_docker.git && cd discourse_docker
+          mkdir -p containers includes
+
           cp ../discourse-$ENV.yml containers/app.yml
           cp ../includes/* includes/
+
           sed -i "s,environment,$ENV," includes/after_build.yml
           sed -i "s,gha_bridge_network,$GHA_NETWORK," containers/app.yml
+
           ./launcher bootstrap app
+
+          TIMESTAMP=$(date '+%F.%H%M%S')
+
+          docker tag local_discourse/app:latest ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${TIMESTAMP}
+          docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${ENV}-${TIMESTAMP}
+
           docker tag local_discourse/app:latest $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG
+
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$TAG $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ENV-$GITHUB_SHA
+
       - name: Logut of Amazon ECR
         if: always()
         run: docker logout ${{ steps.login-ecr.outputs.registry }}
