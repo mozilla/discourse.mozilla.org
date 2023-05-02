@@ -28,7 +28,7 @@ hooks:
           - git clone https://github.com/mozilla/discourse-mozilla-iam; cd discourse-mozilla-iam; git checkout f66123785a02a67ca10d13649cea00c772f7e40a
           - git clone https://github.com/mozilla/discourse-expose-emails-in; cd discourse-expose-emails-in; git checkout e4e92b02bd150c72585eba232a27aa4bf9e7f5fb
           - git clone https://github.com/mozilla/discourse-post-read-email; cd discourse-post-read-email; git checkout 0031da69216ba759cbf5cdda4ff4ad818e4a617f
-          - git clone https://github.com/discourse/discourse-solved; cd discourse-solved; git checkout 02981fe1d9463cee4d8f64228a74da21fc38d90b
+          - git clone https://github.com/discourse/discourse-solved; cd discourse-solved; git checkout 30248619e28d5f173c4dfd149d3d8ba39e3b8796
           - git clone https://github.com/mozilla/discourse-sidekiq-monitor; cd discourse-sidekiq-monitor; git checkout 34178b637ea508d2ef103b6d48d2e0c21af155dd
           - git clone https://github.com/mozilla/discourse-mozilla-letter-avatar; cd discourse-mozilla-letter-avatar; git checkout a5cc90fdafe523a21b5b54abe63d7798efe77b49
           - git clone https://github.com/mozilla/discourse-auto-email-in; cd discourse-auto-email-in; git checkout ca205f63e8b8852154fddd30bf09c994070727e2
