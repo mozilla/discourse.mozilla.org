@@ -24,7 +24,7 @@ hooks:
         cd: $home/plugins
         cmd:
           - mkdir -p plugins
-          - git clone https://github.com/discourse/discourse-akismet; cd discourse-akismet; git checkout 11ef295b5c65684f00ccf55cb4bef5656cd0ba9b
+          - git clone https://github.com/discourse/discourse-akismet; cd discourse-akismet; git checkout 6abd5d252c4435ac5a507d04113b7ff306d833b7
           - git clone https://github.com/mozilla/discourse-mozilla-iam; cd discourse-mozilla-iam; git checkout f66123785a02a67ca10d13649cea00c772f7e40a
           - git clone https://github.com/mozilla/discourse-expose-emails-in; cd discourse-expose-emails-in; git checkout e4e92b02bd150c72585eba232a27aa4bf9e7f5fb
           - git clone https://github.com/mozilla/discourse-post-read-email; cd discourse-post-read-email; git checkout 0031da69216ba759cbf5cdda4ff4ad818e4a617f
