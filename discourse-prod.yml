@@ -16,7 +16,7 @@ docker_args:
   - "--network=gha_bridge_network"
 
 params:
-  version: 413fa49032a88bc869b259938e8fc290a1be2bf3
+  version: f73cdbbd2f20460ea6330930f97cdce59fb984be
 
 hooks:
   after_code:
