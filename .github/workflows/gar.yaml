@@ -15,6 +15,11 @@ on:
         required: true
         default: refs/heads/master
 
+env:
+  IMAGE_NAME: discourse
+  GAR_LOCATION: us
+  GCP_PROJECT_ID: moz-fx-discourse-prod
+  GAR_REPOSITORY: discourse-prod
 
 jobs:
   prepare:
@@ -124,10 +129,6 @@ jobs:
       - name: Build and Push Stage Image to GAR
         id: build-push
         env:
-          IMAGE_NAME: discourse
-          GAR_LOCATION: us
-          GCP_PROJECT_ID: moz-fx-discourse-prod
-          GAR_REPOSITORY: discourse-prod
 
           ENV: ${{ needs.prepare.outputs.ENV }}
           CI_COMMIT_SHORT_SHA: ${{ needs.prepare.outputs.CI_COMMIT_SHORT_SHA }}
