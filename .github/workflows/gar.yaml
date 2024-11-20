@@ -49,6 +49,7 @@ jobs:
           echo "Environment for this pipeline: ${ENV:-prod}";
 
   build-push-promote-image:
+    environment: build
     permissions:
       contents: read
       deployments: write
